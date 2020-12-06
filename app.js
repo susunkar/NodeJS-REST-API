@@ -4,17 +4,18 @@ const morgan = require('morgan'); //for log the requests
 const bodyparser = require('body-parser'); //reading the request body for POST req
 const mongoose = require('mongoose')
 
-
+//router settings
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
+//Mongoose settings
 mongoose.connect(
     'mongodb+srv://ssunkarak:' + process.env.MONGO_ATLAS_PW + '@cluster0.2vrbs.mongodb.net/<dbname>?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }
 );
-
+mongoose.Promise = global.Promise;
 
 //log 
 app.use(morgan('dev')); 
