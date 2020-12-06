@@ -7,6 +7,8 @@ const mongoose = require('mongoose')
 //router settings
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
+//const user = require('./api/models/user');
 
 //Mongoose settings
 mongoose.connect(
@@ -18,9 +20,11 @@ mongoose.connect(
 mongoose.Promise = global.Promise;
 
 //log 
-app.use(morgan('dev')); 
+app.use(morgan('dev'));
 //request body
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({
+    extended: false
+}));
 app.use(bodyparser.json());
 
 //CORS
@@ -39,10 +43,11 @@ app.use((req, res, next) => {
 //Router
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
-    error.status=404;
+    error.status = 404;
     next(error);
 });
 
